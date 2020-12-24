@@ -44,7 +44,7 @@ jobs:
           darckfast/brasilapi:latest
 
     - name: Rodar testes na imagem docker
-      run: docker run -d --name brasilapi --rm darckfast/brasilapi:latest && npm run test:docker
+      run: docker run -d --name brasilapi -p 3000:3000 --rm darckfast/brasilapi:latest && npm run test:docker
 
     - name: Digest da imagem
       run: echo ${{ steps.docker_build.outputs.digest }}
