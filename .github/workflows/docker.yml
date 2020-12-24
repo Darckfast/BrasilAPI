@@ -1,0 +1,44 @@
+name: Build e scan da imagem docker
+
+#on:
+#  schedule:
+#    - cron: '0 9 * * *'
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ main ]
+  #schedule:
+  #  - cron: '29 20 * * 4'
+
+jobs:
+  build:
+    environment: production
+    runs-on: ubuntu-latest
+    steps:
+    - name: Loga no DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build da imagem docker
+      id: docker_build
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: |
+          darckfast/brasilapi:latest
+    - name: Digest da imagem
+      run: echo ${{ steps.docker_build.outputs.digest }}
+  scan:
+    name: Varredura de vulnerabilidades
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixa a imagem
+        run: docker pull darckfast/brasilapi:latest
+
+      - uses: homoluctus/gitrivy@v1.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          image: darckfast/brasilapi:latest
