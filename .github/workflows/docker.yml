@@ -3,12 +3,12 @@ name: Build e scan da imagem docker
 #on:
 #  schedule:
 #    - cron: '0 9 * * *'
-on:
-  push:
-    branches: [ main ]
-  pull_request:
+on: [push, pull_request]
+  #push:
+  #  branches: [ main ]
+  #pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ main ]
+  #  branches: [ main ]
   #schedule:
   #  - cron: '29 20 * * 4'
 
