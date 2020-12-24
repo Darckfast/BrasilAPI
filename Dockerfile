@@ -27,4 +27,5 @@ ENV NODE_ENV=production
 HEALTHCHECK --interval=5s --timeout=10s --start-period=5s --retries=3 \
   CMD wget http://localhost:3000/api/status/v1 -q -O - > /dev/null 2>&1
 
-CMD ["npm", "run", "start"]
+#CMD ["npm", "run", "start"]
+CMD npm run start
