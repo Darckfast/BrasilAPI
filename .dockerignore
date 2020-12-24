@@ -1,0 +1,8 @@
+**
+
+!services/**
+!public/**
+!pages/**
+!graphql/**
+!package.json
+!package-lock.json
