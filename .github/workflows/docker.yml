@@ -3,7 +3,7 @@ name: Build e scan da imagem docker
 #on:
 #  schedule:
 #    - cron: '0 9 * * *'
-on: [push, pull_request]
+on: [pull_request]
   #push:
   #  branches: [ main ]
   #pull_request:
@@ -31,14 +31,11 @@ jobs:
           darckfast/brasilapi:latest
     - name: Digest da imagem
       run: echo ${{ steps.docker_build.outputs.digest }}
-  scan:
-    name: Varredura de vulnerabilidades
-    runs-on: ubuntu-latest
-    steps:
-      - name: Baixa a imagem
-        run: docker pull darckfast/brasilapi:latest
 
-      - uses: homoluctus/gitrivy@v1.0.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          image: darckfast/brasilapi:latest
+    #- name: Baixa a imagem
+    #  run: docker pull darckfast/brasilapi:latest
+
+    - uses: homoluctus/gitrivy@v1.0.0
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        image: darckfast/brasilapi:latest
