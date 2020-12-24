@@ -35,6 +35,7 @@
     "build": "next build",
     "start": "next start",
     "test": "jest --forceExit",
+    "test:docker": "jest --forceExit --globalSetup='' --globalTeardown=''",
     "test:watch": "jest --watch",
     "fix": "eslint . --ext .js --fix"
   },

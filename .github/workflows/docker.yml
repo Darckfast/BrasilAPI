@@ -43,11 +43,11 @@ jobs:
         tags: |
           darckfast/brasilapi:latest
 
+    - name: Rodar testes na imagem docker
+      run: docker run -d --name brasilapi --rm darckfast/brasilapi:latest && npm run test:docker
+
     - name: Digest da imagem
       run: echo ${{ steps.docker_build.outputs.digest }}
-
-    #- name: Baixa a imagem
-    #  run: docker pull darckfast/brasilapi:latest
 
     - uses: homoluctus/gitrivy@v1.0.0
       with:
