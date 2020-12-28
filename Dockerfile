@@ -7,7 +7,7 @@ COPY . .
 RUN npm ci && \
   npm run build
 
-FROM node:lts-alpine as production
+FROM node:lts-alpine
 
 ENV NODE_ENV=production
 WORKDIR /app
