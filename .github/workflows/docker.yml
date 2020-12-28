@@ -34,17 +34,21 @@ jobs:
       id: docker_build
       uses: docker/build-push-action@v2
       with:
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache
         tags: |
           darckfast/brasilapi:pull_request
 
-
     - name: Rodar testes na imagem docker
       run: docker run -d --name brasilapi -p 3000:3000 --rm darckfast/brasilapi:pull_request && npm i && npm run test:docker
+      with:
+        cache-from: type=local,src=/tmp/.buildx-cache
 
     - name: Digest da imagem
       run: echo ${{ steps.docker_build.outputs.digest }}
 
     - uses: homoluctus/gitrivy@v1.0.0
       with:
+        cache-from: type=local,src=/tmp/.buildx-cache
         token: ${{ secrets.GITHUB_TOKEN }}
         image: darckfast/brasilapi:pull_request
