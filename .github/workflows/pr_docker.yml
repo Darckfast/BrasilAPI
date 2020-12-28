@@ -40,9 +40,9 @@ jobs:
           darckfast/brasilapi:pull_request
 
     - name: Rodar testes na imagem docker
-      run: docker run -d --name brasilapi -p 3000:3000 --rm darckfast/brasilapi:pull_request && npm i && npm run test:docker
-      with:
-        cache-from: type=local,src=/tmp/.buildx-cache
+      run: docker run -d --name brasilapi -p 3000:3000 --rm darckfast/brasilapi:pull_request --cache-from /tmp/.buildx-cache && npm i && npm run test:docker
+      #with:
+      #  cache-from: type=local,src=/tmp/.buildx-cache
 
     - name: Digest da imagem
       run: echo ${{ steps.docker_build.outputs.digest }}
