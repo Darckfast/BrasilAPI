@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    environment: production
+    environment: docker
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -45,4 +45,4 @@ jobs:
     - uses: homoluctus/gitrivy@v1.0.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        image: darckfast/brasilapi:latest
+        image: darckfast/brasilapi:${{ env.RELEASE_VERSION }}
