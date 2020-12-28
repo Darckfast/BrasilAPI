@@ -34,8 +34,6 @@ jobs:
 
     - name: Rodar testes na imagem docker
       run: docker run -d --name brasilapi -p 3000:3000 --rm ghcr.io/$GITHUB_REPOSITORY:pull_request --cache-from /tmp/.buildx-cache && npm i && npm run test:docker
-      #with:
-      #  cache-from: type=local,src=/tmp/.buildx-cache
 
     - name: Digest da imagem
       run: echo ${{ steps.docker_build.outputs.digest }}
