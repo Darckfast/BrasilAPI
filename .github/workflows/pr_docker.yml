@@ -23,7 +23,7 @@ jobs:
       uses: docker/setup-buildx-action@master
 
     - name: Github packages login
-      run: echo $PAT | docker login ghcr.io --username phanatic --password-stdin
+      run: echo $PAT | docker login ghcr.io -u $GITHUB_ACTOR --password-stdin
 
     - name: Build da imagem docker
       id: docker_build
