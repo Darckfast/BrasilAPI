@@ -10,39 +10,39 @@ jobs:
     environment: docker
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Atribui versão da release
-      run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+      - name: Atribui versão da release
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
-    - name: Loga no DockerHub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Loga no DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-    - name: Set up Docker Buildx
-      id: buildx
-      uses: docker/setup-buildx-action@master
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@master
 
-    - name: Cache Docker layers
-      uses: actions/cache@v2
-      with:
-        path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-buildx-
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
 
-    - name: Build da imagem docker
-      id: docker_build
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        tags: |
-          darckfast/brasilapi:latest
-          darckfast/brasilapi:${{ env.RELEASE_VERSION }}
-          
-    - uses: homoluctus/gitrivy@v1.0.0
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        image: darckfast/brasilapi:${{ env.RELEASE_VERSION }}
+      - name: Build da imagem docker
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: |
+            darckfast/brasilapi:latest
+            darckfast/brasilapi:${{ env.RELEASE_VERSION }}
+            
+      - uses: homoluctus/gitrivy@v1.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          image: darckfast/brasilapi:${{ env.RELEASE_VERSION }}

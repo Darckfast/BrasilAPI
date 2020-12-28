@@ -35,11 +35,11 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         tags: |
-          darckfast/brasilapi:latest
+          darckfast/brasilapi:pull_request
 
 
     - name: Rodar testes na imagem docker
-      run: docker run -d --name brasilapi -p 3000:3000 --rm darckfast/brasilapi:latest && npm i && npm run test:docker
+      run: docker run -d --name brasilapi -p 3000:3000 --rm darckfast/brasilapi:pull_request && npm i && npm run test:docker
 
     - name: Digest da imagem
       run: echo ${{ steps.docker_build.outputs.digest }}
@@ -47,4 +47,4 @@ jobs:
     - uses: homoluctus/gitrivy@v1.0.0
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        image: darckfast/brasilapi:latest
+        image: darckfast/brasilapi:pull_request
