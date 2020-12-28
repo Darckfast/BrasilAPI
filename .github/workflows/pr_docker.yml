@@ -34,7 +34,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: docker.pkg.github.com/$GITHUB_REPOSITORY:pull_request
+        tags: $GITHUB_REPOSITORY:pull_request
 
     - name: Rodar testes na imagem docker
       run: docker run -d --name brasilapi -p 3000:3000 --rm docker.pkg.github.com/$GITHUB_REPOSITORY:pull_request --cache-from /tmp/.buildx-cache && npm i && npm run test:docker
