@@ -44,8 +44,8 @@ jobs:
     #- name: Digest da imagem
     #  run: echo ${{ steps.docker_build.outputs.digest }}
 
-    #- uses: homoluctus/gitrivy@v1.0.0
-    #  with:
-    #    cache-from: type=local,src=/tmp/.buildx-cache
-    #    token: ${{ secrets.GITHUB_TOKEN }}
-    #    image: ghcr.io/darckfast/brasilapi:pull_request
+    - uses: homoluctus/gitrivy@v1.0.0
+      with:
+        cache-from: type=local,src=/tmp/.buildx-cache
+        token: ${{ secrets.GITHUB_TOKEN }}
+        image: ghcr.io/darckfast/brasilapi:${{ steps.docker_meta.outputs.tags[0] }}
