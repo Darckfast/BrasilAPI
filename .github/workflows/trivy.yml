@@ -1,0 +1,18 @@
+name: Varredura de vulnerabilidades
+
+on:
+  schedule:
+    - cron: '0 9 * * *'
+
+jobs:
+  scan:
+    name: Varredura de vulnerabilidades diária
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixa imagem docker
+        run: docker pull darckfast/brasilapi:latest
+
+      - uses: homoluctus/gitrivy@v1.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          image: darckfast/brasilapi:latest
