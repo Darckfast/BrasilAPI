@@ -35,19 +35,10 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags:  ghcr.io/darckfast/brasilapi:pr_${{ github.event.number }}
-       # - ${{ steps.docker_meta.outputs.tags }}
-#       -
+        tags:  ghcr.io/darckfast/brasilapi:pr-${{ github.event.number }}
         labels: ${{ steps.docker_meta.outputs.labels }}
-
-   #- name: Rodar testes na imagem docker
-   #   run: docker run -d --name brasilapi -p 3000:3000 --rm ghcr.io/darckfast/brasilapi:pull_request && npm i && npm run test:docker
-
-    #- name: Digest da imagem
-    #  run: echo ${{ steps.docker_build.outputs.digest }}
-
+        
     - uses: homoluctus/gitrivy@v1.0.0
       with:
-        #cache-from: type=local,src=/tmp/.buildx-cache
         token: ${{ secrets.GITHUB_TOKEN }}
-        image: ghcr.io/darckfast/brasilapi:${{ steps.docker_meta.outputs.tags[0] }}
+        image: ghcr.io/darckfast/brasilapi:pr-${{ github.event.number }}
