@@ -35,9 +35,9 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: 
+        tags:  ghcr.io/darckfast/brasilapi:pr_${{ github.event.number }}
        # - ${{ steps.docker_meta.outputs.tags }}
-        - ghcr.io/darckfast/brasilapi:pr_${{ github.event.number }}
+#       -
         labels: ${{ steps.docker_meta.outputs.labels }}
 
    #- name: Rodar testes na imagem docker
